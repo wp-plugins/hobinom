@@ -1,0 +1,7 @@
+#domain-avail,#domain-notavail,#domain-default{color:#fff;text-align:center;font-weight:strong;padding:5px}
+#domain-avail{background:green}
+#domain-notavail{background:red}
+#domain-default{background:brown}
+#poststuff h3, .metabox-holder h3{   font-size: 15px; font-weight: normal;  line-height: 1;  margin: 0;   padding: 7px 10px;}
+.postbox .inside { margin: 10px 0; position: relative}
+.postbox .inside, .stuffbox .inside { line-height: 1.4em; padding: 0 12px 0 10px}
