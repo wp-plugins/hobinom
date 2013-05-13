@@ -11,8 +11,12 @@
 	$username = $details['username'];  
 	$password = $details['password']; 
 ?>
-<div class="wrap">  
-	<?php echo "<h2>" . __( 'hobinom Domain Search', 'hobinom_trdom' ) . "</h2>";?>
+<div class="metabox-holder">
+	
+	<!-- Getting Started box -->
+	<div class="postbox">
+		<h3 class="hndle"><span>Hobinom Domain Search</span></h3>
+		<div class="inside">
 			
 		<form name="hobinom_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">  
 				<input type="hidden" name="hobinom_hidden" value="Y">  
@@ -42,7 +46,7 @@ if($_POST['hobinom_hidden'] == 'Y')
   $url =  'https://resellertest.enom.com/interface.asp?command=check&sld='.$domain.'&tld='.$tld.
 					'&responsetype=xml&uid='.$username.'&pw='.$password;
 	
-  // Load the API results into a SimpleXML object
+	// Load the API results into a SimpleXML object
   $xml = simplexml_load_file($url);
 	
 	if(isset($xml->errors)) 
@@ -76,3 +80,5 @@ if($_POST['hobinom_hidden'] == 'Y')
 	}
 }
 ?>
+</div>
+</div>

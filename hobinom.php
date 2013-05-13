@@ -2,8 +2,8 @@
  /*
  Plugin Name: HobiNom
  Plugin URI: http://immortaldc.com/wordpress/plugins/hobinom
- Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account. HobiNom is the basic version of HobiNomNom, part of the Hobi Suite. 
- Version: .1
+ Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account.  
+ Version: .2
  Author: Immortal Design
  Author URI: http://immortaldc.com
  */
@@ -133,6 +133,7 @@ class hobinomFuncCollection
 			add_submenu_page('hobinom', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
 
 			add_submenu_page('hobinom', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
+			add_submenu_page('hobinom', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
 		
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 		
