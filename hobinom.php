@@ -3,7 +3,7 @@
  Plugin Name: HobiNom
  Plugin URI: http://immortaldc.com/wordpress/plugins/hobinom
  Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account. HobiNom is the basic version of HobiNomNom, part of the Hobi Suite. 
- Version: .1
+ Version: .3
  Author: Immortal Design
  Author URI: http://immortaldc.com
  */
