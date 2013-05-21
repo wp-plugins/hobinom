@@ -3,7 +3,7 @@ Contributors: Immortal Design
 Tags: enom, reseller, domain reseller, domain management, domain search, domain
 Requires at least: 3.1
 Tested up to: 3.5.1
-Stable tag: 0.2
+Stable tag: 0.3
 
 == Description ==
 It's time to stop logging into eNom seperately, and start managing it from WordPress. 
@@ -14,7 +14,6 @@ You HAVE to submit your IP to eNom to activate the reseller API ability (we can'
 * Namespinner (widget)
 * Domain Management (including TLD offerings, retrieval, and pricing)
 * Purchasing domain names
-* Geting a list of domain names, and with specific statuses
 * WhoIs (page and widget)
 * SSL: selling, managing
 * TrustE: selling, managing
@@ -53,5 +52,6 @@ N/A
 
 == Changelog ==
 
-.2 - Created namespinner page, modified look of plugin.
-.1 - Initial launch.
+.3 - (2013-05-21) - Created list domains page, ability to click on button to list all domains and statuses, as well as list all expired domains.
+.2 - (2013-05-13) - Created namespinner page, modified look of plugin.
+.1 - (2013-05-02) - Initial launch.

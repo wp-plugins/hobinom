@@ -2,8 +2,8 @@
  /*
  Plugin Name: HobiNom
  Plugin URI: http://immortaldc.com/wordpress/plugins/hobinom
- Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account.  
- Version: .2
+ Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account. HobiNom is the basic version of HobiNomNom, part of the Hobi Suite. 
+ Version: .1
  Author: Immortal Design
  Author URI: http://immortaldc.com
  */
@@ -42,7 +42,7 @@ add_action( 'plugins_loaded', array($HNfunctions,'hobinom_update_db_check') );
 
 // Create pages
 add_action( 'admin_menu', array($HNfunctions, 'hobinom_navigation_menu') );  
-add_action( 'wp_enqueue_scripts', array($HNfunctions,'hobinom_style') );   //css style
+add_action( 'admin_init', array($HNfunctions,'hobinom_style') );   //css style
 
 add_filter('plugin_action_links', array($HNfunctions, 'hobinom_add_settings_link'), 10, 2 );
 add_filter( 'rul_before_user', 'login_widget_redirect', 10, 4 );
@@ -133,6 +133,7 @@ class hobinomFuncCollection
 			add_submenu_page('hobinom', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
 
 			add_submenu_page('hobinom', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
+			add_submenu_page('hobinom', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
 			add_submenu_page('hobinom', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
 		
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
@@ -144,9 +145,7 @@ class hobinomFuncCollection
 	{  
 		// Register the style like this for a plugin:  
 		wp_register_style( 'custom-style', plugins_url( '/css/style.css', __FILE__ ), array(), '20130414', 'all' );  
-		
-		// For either a plugin or a theme, you can then enqueue the style:  
-		wp_enqueue_style( 'custom-style' );  
+    wp_enqueue_style( 'custom-style' );
 	}  
 	
 	function widget_redirect( $redirect_to, $requested_redirect_to )

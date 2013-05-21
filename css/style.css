@@ -6,3 +6,4 @@
 .postbox .inside { margin: 10px 0; position: relative}
 .postbox .inside, .stuffbox .inside { line-height: 1.4em; padding: 0 12px 0 10px}
 #namespinner{width:60%;border-bottom:1px solid #ccc}
+ul#hobinom { list-style:disc; margin-left:30px}
