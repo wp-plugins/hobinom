@@ -3,7 +3,7 @@ Contributors: Immortal Design
 Tags: enom, reseller, domain reseller, domain management, domain search, domain
 Requires at least: 3.1
 Tested up to: 3.5.1
-Stable tag: 0.3
+Stable tag: 0.4
 
 == Description ==
 It's time to stop logging into eNom seperately, and start managing it from WordPress. 
@@ -11,9 +11,10 @@ It's time to stop logging into eNom seperately, and start managing it from WordP
 You HAVE to submit your IP to eNom to activate the reseller API ability (we can't do that for you). If you have that done, then activate, and start using the features on the back-end or front-end of Wordpress. 
 
 ** Coming Soon **
+
 * Namespinner (widget)
 * Domain Management (including TLD offerings, retrieval, and pricing)
-* Purchasing domain names
+* Purchasing domain names (advance)
 * WhoIs (page and widget)
 * SSL: selling, managing
 * TrustE: selling, managing
@@ -24,13 +25,16 @@ You HAVE to submit your IP to eNom to activate the reseller API ability (we can'
 And many, many, many more features.
 
 Also coming soon: 
+
 * HobiDay - for GoDaddy users 
 * HobiCheap - for NameCheap users
 * HobiNam - for Name.com users
 * HobiSRS - for OpenSRS.com users
 * HobiReg - for Register.com users
 
+
 Don't see one on the list, or want to make sure one plugin gets out faster? Need support? Go to [link] (http://immortaldc.com/forum/hobinom/ "our forums") and we'll be happy to help!
+
 
 http://www.facebook.com/immortaldc
 http://twitter.com/goimmortal
@@ -52,6 +56,7 @@ N/A
 
 == Changelog ==
 
+.4 - (2013-06-09) - added option to purchase domain names
 .3 - (2013-05-21) - Created list domains page, ability to click on button to list all domains and statuses, as well as list all expired domains.
 .2 - (2013-05-13) - Created namespinner page, modified look of plugin.
 .1 - (2013-05-02) - Initial launch.

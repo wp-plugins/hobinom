@@ -2,8 +2,8 @@
  /*
  Plugin Name: HobiNom
  Plugin URI: http://immortaldc.com/wordpress/plugins/hobinom
- Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account. HobiNom is the basic version of HobiNomNom, part of the Hobi Suite. 
- Version: .1
+ Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account.
+ Version: .4
  Author: Immortal Design
  Author URI: http://immortaldc.com
  */
@@ -44,8 +44,9 @@ add_action( 'plugins_loaded', array($HNfunctions,'hobinom_update_db_check') );
 add_action( 'admin_menu', array($HNfunctions, 'hobinom_navigation_menu') );  
 add_action( 'admin_init', array($HNfunctions,'hobinom_style') );   //css style
 
-add_filter('plugin_action_links', array($HNfunctions, 'hobinom_add_settings_link'), 10, 2 );
+add_filter( 'plugin_action_links', array($HNfunctions, 'hobinom_add_settings_link'), 10, 2 );
 add_filter( 'rul_before_user', 'login_widget_redirect', 10, 4 );
+add_filter( 'page_template', array($HNfunctions, 'hobinom_page_template' ));
 
 register_activation_hook( __FILE__, array($HNfunctions, 'hobinom_install') );
 // register_activation_hook( __FILE__, 'hobinom_install_data' );
@@ -117,7 +118,7 @@ class hobinomFuncCollection
 			// add_menu_page(__('Test Toplevel','menu-test'), __('Test ','menu-test'), 'manage_options', 'mt-top-level-handle', 'mt_toplevel_page' );
 			
 			//  add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position )
-			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', 'hobinom', HOBINOM_DIR.'/settings.php', plugins_url('hobinom/images/starfish.png') );
+			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', 'hobinom', '', plugins_url('hobinom/images/starfish.png') );
 
 			// remove duplicate menu hack
 			add_submenu_page(
@@ -135,7 +136,7 @@ class hobinomFuncCollection
 			add_submenu_page('hobinom', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
 			add_submenu_page('hobinom', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
 			add_submenu_page('hobinom', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
-		
+			add_submenu_page('hobinom', __('Purchase','domain-purchase'), __('Purchase','domain-purchase'), 'manage_options', HOBINOM_DIR.'/include/domain-purchase.php');
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 		
 		}          
@@ -179,7 +180,18 @@ class hobinomFuncCollection
 		
 		$wpdb->query($sql);
 	}
+	
+	function hobinom_page_template( $page_template )
+	{
+    if ( is_page( 'hobinom' ) ) {
+			$page_template = dirname( __FILE__ ) . '/settings.php';
+    }
+    return $page_template;
+	}
 }
+
+print_r($page_template);
+print_r($wp);
 
 
 ?>
