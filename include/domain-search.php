@@ -10,11 +10,90 @@
 	
 	$username = $details['username'];  
 	$password = $details['password']; 
-?>
-<div class="metabox-holder">
+
+	if($_POST['hobinom_hidden'] == 'Y') 
+	{  
+		//Form data sent  
+		$domain = $_POST['hobinom_domain'];	
+		$tld = $_POST['hobinom_tld'];
+
+		print_r($_POST);
+		
+		if(isset($_POST['search_domain']))
+		{
+			$url =  'https://resellertest.enom.com/interface.asp?command=check&sld='.$domain.'&tld='.$tld.'&responsetype=xml&uid='.$username.'&pw='.$password;
+		}
+		else
+		{
+			$url = 'https://resellertest.enom.com/interface.asp?command=GetDomainInfo&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML';
+		}
+		
+		// Load the API results into a SimpleXML object
+		$xml = simplexml_load_file($url);
+		
+		if(isset($xml->errors)) 
+		{
+			// print all errors
+			function recursive_print($item, $key)
+			{
+				echo '<div class="updated"><p><strong>'.$item.'</strong></p></div>';
+			}
+			array_walk_recursive($xml->errors, 'recursive_print');
+		}
+		else
+		{
+			if(isset($_POST['search_domain']))
+			{
+				// Read the results
+				$rrpCode = $xml->RRPCode;
+				$rrpText = $xml->RRPText;
+				
+				// Perform actions based on results
+				switch ($rrpCode) 
+				{
+					case 210:
+						echo '<div class="updated"><p><strong>Domain ('. $xml->DomainName.') available</strong></p></div>';
+						break;
+					case 211:
+						echo '<div class="updated"><p><strong>Domain ('.$xml->DomainName.') not available (code: '.$rrpCode.')</strong></p></div>';
+						break;
+					default:
+						echo '<div class="updated"><p><strong>Code: '. $rrpCode . ' ' . $rrpText . '</strong></p></div>';
+						break;
+				}
+			} 
+			else
+			{
+			
+				$info = $xml->GetDomainInfo->status;
 	
-	<!-- Getting Started box -->
-		<div class="postbox" style="float:left; width:45%; margin: 0 3px 0 0">
+				print "<table width='70%' style='text-align:center'>";
+				print "<tr><td>Domain name:</td><td>$info->domainname</td></tr>";
+				print "<tr><td>Status:</td><td>";
+				foreach ($info->status as $key => $val) { foreach($val as $key2=>$val2) { print "$key2 => $val2<br />"; }}
+				print "</td></tr><tr><td>Parking Enabled?</td><td>$info->ParkingEnabled</td></tr>";
+			 
+				print "</td></tr></table>";
+				
+				$i = 0;
+				foreach ($info as $each_member) {
+						$i++;
+						echo "<h2>Member $i</h2>";
+						while (list($key, $value) = each ($each_member)) {
+																							 
+								echo "$key: $value<br />";
+								
+						}
+
+				} 
+
+			}
+		}
+	} 
+	?>
+</div>
+<div class="metabox-holder">
+	<div class="postbox" style="float:left; width:45%; margin: 0 3px 0 0">
 		<h3 class="hndle"><span>Hobinom Domain Search</span></h3>
 		<div class="inside">
 			
@@ -57,85 +136,3 @@
 		</form>  
 		</div>
 	</div>
-</div>
-<?php
-if($_POST['hobinom_hidden'] == 'Y') 
-{  
-	//Form data sent  
-	$domain = $_POST['hobinom_domain'];	
-	$tld = $_POST['hobinom_tld'];
-
-	if(isset($_POST['search_domain']))
-	{
-  $url =  'https://resellertest.enom.com/interface.asp?command=check&sld='.$domain.'&tld='.$tld.
-					'&responsetype=xml&uid='.$username.'&pw='.$password;
-	}
-	else
-	{
-		$url = 'http://resellertest.enom.com/interface.asp?command=GetDomainInfo&UID='.$username.'&PW='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML';
-	}
-	
-	// Load the API results into a SimpleXML object
-  $xml = simplexml_load_file($url);
-	//echo "<pre>".print_r($xml,true)."</pre>";
-	
-	if(isset($xml->errors)) 
-	{
-		// print all errors
-		function recursive_print($item, $key)
-		{
-			echo '<div class="updated"><p><strong>'.$item.'</strong></p></div>';
-		}
-		array_walk_recursive($xml->errors, 'recursive_print');
-	}
-	else
-	{
-		if(isset($_POST['search_domain']))
-		{
-			// Read the results
-			$rrpCode = $xml->RRPCode;
-			$rrpText = $xml->RRPText;
-			
-			// Perform actions based on results
-			switch ($rrpCode) 
-			{
-				case 210:
-					echo '<div class="updated"><p><strong>Domain ('. $xml->DomainName.') available</strong></p></div>';
-					break;
-				case 211:
-					echo '<div class="updated"><p><strong>Domain ('.$xml->DomainName.') not available (code: '.$rrpCode.')</strong></p></div>';
-					break;
-				default:
-					echo '<div class="updated"><p><strong>Code: '. $rrpCode . ' ' . $rrpText . '</strong></p></div>';
-					break;
-			}
-		} 
-		else
-		{
-		
-			$info = $xml->GetDomainInfo->status;
-			print "<table width='70%' style='text-align:center'>";
-			print "<tr><td>Domain name:</td><td>$info->domainname</td></tr>";
-			print "<tr><td>Status:</td><td>";
-			foreach ($info->status as $key => $val) { foreach($val as $key2=>$val2) { print "$key2 => $val2<br />"; }}
-			print "</td></tr><tr><td>Parking Enabled?</td><td>$info->ParkingEnabled</td></tr>";
-		 
-			print "</td></tr></table>";
-		  
-			$i = 0;
-			foreach ($info as $each_member) {
-					$i++;
-					echo "<h2>Member $i</h2>";
-					while (list($key, $value) = each ($each_member)) {
-																						 
-							echo "$key: $value<br />";
-							
-					}
-
-			} 
-
-		}
-	}
-} 
-?>
-</div>

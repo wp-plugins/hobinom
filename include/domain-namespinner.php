@@ -83,7 +83,12 @@
 				</td></tr>
 				</table>
 		</form>  
+		</div>
+	</div>
 
+	<!-- Getting Started box -->
+<div class="postbox">
+	
 <?php
 if($_POST['hobinom_hidden'] == 'Y') 
 {  
@@ -111,7 +116,7 @@ if($_POST['hobinom_hidden'] == 'Y')
 	
 	if(isset($xml->errors)) 
 	{
-		// print all errors
+		// echo all errors
 		function recursive_print($item, $key)
 		{
 			echo '<div class="updated"><p><strong>'.$item.'</strong></p></div>';
@@ -120,23 +125,30 @@ if($_POST['hobinom_hidden'] == 'Y')
 	}
 	else
 	{
-		print "<h3>Namespinner Results</h3>";
-		print "<table width='60%'><tr><td></td><td><th>Availability</th></td>";
-		print "<tr><th>Spinned Name</th><td><i>.com</i></td><td><i>.net</i></td><td><i>.tv</i></td><td><i>.cc</i></td></strong></td></tr>";
+		echo "<h3 class='hndle'>Namespinner Results</h3>";
+		echo "<div class='inside'>";
+		echo "<table width='60%'><tr><td></td><td><th>Availability</th></td>";
+		echo "<tr><th>Spinned Name</th><td><i>.com</i></td><td><i>.net</i></td><td><i>.tv</i></td><td><i>.cc</i></td></strong></td></tr>";
 		for($i=0; $i<count($xml->namespin->domains->domain); $i++)
 		{	
-			print "<tr>";
-			print "<td>".$xml->namespin->domains->domain->$i->attributes()->name."</td>";
-			print "<td>".$xml->namespin->domains->domain->$i->attributes()->com."</td>";
-			print "<td>".$xml->namespin->domains->domain->$i->attributes()->net."</td>";
-			print "<td>".$xml->namespin->domains->domain->$i->attributes()->tv."</td>";
-			print "<td>".$xml->namespin->domains->domain->$i->attributes()->cc."</td>";
-			print "</tr>";
+		
+			$style_com = ($xml->namespin->domains->domain->$i->attributes()->com == 'y') ? "background:green; color:#fff" : "background: red; color: #fff";
+			$style_net = ($xml->namespin->domains->domain->$i->attributes()->net == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			$style_tv = ($xml->namespin->domains->domain->$i->attributes()->tv == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			$style_cc = ($xml->namespin->domains->domain->$i->attributes()->cc == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			
+			echo "<tr>";
+			echo "<td>".$xml->namespin->domains->domain->$i->attributes()->name."</td>";
+			echo "<td style='".$style_com."'>".$xml->namespin->domains->domain->$i->attributes()->com."</td>";
+			echo "<td style='".$style_net."'>".$xml->namespin->domains->domain->$i->attributes()->net."</td>";
+			echo "<td style='".$style_tv."'>".$xml->namespin->domains->domain->$i->attributes()->tv."</td>";
+			echo "<td style='".$style_cc."'>".$xml->namespin->domains->domain->$i->attributes()->cc."</td>";
+			echo "</tr>";
 		}
-		print "</table>";
+		echo "</table>";
 	}
 }
 ?>
-	</div>  
+		</div>
 	</div>
 </div>
