@@ -1,15 +1,15 @@
 <?php
  /*
  Plugin Name: HobiNom
- Plugin URI: http://immortaldc.com/wordpress/plugins/hobinom
+ Plugin URI: http://hobihut.com/hobinom
  Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account.
- Version: .4
+ Version: .5
  Author: Immortal Design
  Author URI: http://immortaldc.com
  */
 
  
-/*  © Copyright 2013  Immortal Design ( dev@immortaldc.com )
+/*  © Copyright 2013+  Immortal Design ( dev@immortaldc.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2 or later, as 
@@ -58,6 +58,13 @@ register_deactivation_hook( __FILE__, array($HNfunctions, 'hobinom_remove') );
 
 class hobinomFuncCollection 
 {
+
+	function __construct() 
+	{
+		// Register style sheet.
+		add_action( 'wp_enqueue_scripts', array( $this, 'hobinom_style' ) );
+	}
+	
 	//install database schema for saving data
 	function hobinom_install() 
 	{

@@ -1,4 +1,4 @@
-#domain-avail,#domain-notavail,#domain-default{color:#fff;text-align:center;font-weight:strong;padding:5px}
+#domain-avail,#domain-notavail,#domain-default{border:1px solid #ccc; color:#fff;text-align:center;font-weight:strong;padding:5px}
 #domain-avail{background:green}
 #domain-notavail{background:red}
 #domain-default{background:brown}
