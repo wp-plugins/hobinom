@@ -131,18 +131,18 @@ if($_POST['hobinom_hidden'] == 'Y')
 		echo "<tr><th>Spinned Name</th><td><i>.com</i></td><td><i>.net</i></td><td><i>.tv</i></td><td><i>.cc</i></td></strong></td></tr>";
 		for($i=0; $i<count($xml->namespin->domains->domain); $i++)
 		{	
-		
-			$style_com = ($xml->namespin->domains->domain->$i->attributes()->com == 'y') ? "background:green; color:#fff" : "background: red; color: #fff";
-			$style_net = ($xml->namespin->domains->domain->$i->attributes()->net == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
-			$style_tv = ($xml->namespin->domains->domain->$i->attributes()->tv == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
-			$style_cc = ($xml->namespin->domains->domain->$i->attributes()->cc == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			$domain = $xml->namespin->domains->domain->$i->attributes();
+			$style_com = ($domain->com == 'y') ? "background:green; color:#fff" : "background: red; color: #fff";
+			$style_net = ($domain->net == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			$style_tv = ($domain->tv == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
+			$style_cc = ($domain->cc == 'y') ? "background:green; color: #fff" : "background: red; color: #fff";
 			
 			echo "<tr>";
-			echo "<td>".$xml->namespin->domains->domain->$i->attributes()->name."</td>";
-			echo "<td style='".$style_com."'>".$xml->namespin->domains->domain->$i->attributes()->com."</td>";
-			echo "<td style='".$style_net."'>".$xml->namespin->domains->domain->$i->attributes()->net."</td>";
-			echo "<td style='".$style_tv."'>".$xml->namespin->domains->domain->$i->attributes()->tv."</td>";
-			echo "<td style='".$style_cc."'>".$xml->namespin->domains->domain->$i->attributes()->cc."</td>";
+			echo "<td>".$domain->name."</td>";
+			echo "<td style='".$style_com."'>".$domain->com."</td>";
+			echo "<td style='".$style_net."'>".$domain->net."</td>";
+			echo "<td style='".$style_tv."'>".$domain->tv."</td>";
+			echo "<td style='".$style_cc."'>".$domain->cc."</td>";
 			echo "</tr>";
 		}
 		echo "</table>";

@@ -56,6 +56,7 @@ N/A
 
 == Changelog ==
 
+.5 - (2014-10-20) - updated code to WP 4.0, added domain info search, fixed plugin styles not loading.
 .4 - (2013-06-09) - added option to purchase domain names
 .3 - (2013-05-21) - Created list domains page, ability to click on button to list all domains and statuses, as well as list all expired domains.
 .2 - (2013-05-13) - Created namespinner page, modified look of plugin.
