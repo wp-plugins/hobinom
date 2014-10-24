@@ -125,25 +125,15 @@ class hobinomFuncCollection
 			// add_menu_page(__('Test Toplevel','menu-test'), __('Test ','menu-test'), 'manage_options', 'mt-top-level-handle', 'mt_toplevel_page' );
 			
 			//  add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position )
-			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', 'hobinom', '', plugins_url('hobinom/images/starfish.png') );
-
-			// remove duplicate menu hack
-			add_submenu_page(
-				'hobinom',        // parent slug, same as above menu slug
-				'',        // empty page title
-				'',        // empty menu title
-				'manage_options',        // same capability as above
-				'hobinom',        // same menu slug as parent slug
-				'hobinom'        // same function as above
-			);
+			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', HOBINOM_DIR.'/settings.php', '', plugins_url('hobinom/images/starfish.png') );
 			
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
-			add_submenu_page('hobinom', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
 
-			add_submenu_page('hobinom', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
-			add_submenu_page('hobinom', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
-			add_submenu_page('hobinom', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
-			add_submenu_page('hobinom', __('Purchase','domain-purchase'), __('Purchase','domain-purchase'), 'manage_options', HOBINOM_DIR.'/include/domain-purchase.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Purchase','domain-purchase'), __('Purchase','domain-purchase'), 'manage_options', HOBINOM_DIR.'/include/domain-purchase.php');
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 		
 		}          

@@ -112,4 +112,5 @@ class hobinom_db
 		}
 	}
 }
+
 ?>

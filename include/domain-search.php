@@ -17,7 +17,6 @@
 		$domain = $_POST['hobinom_domain'];	
 		$tld = $_POST['hobinom_tld'];
 
-		print_r($_POST);
 		
 		if(isset($_POST['search_domain']))
 		{
@@ -136,3 +135,4 @@
 		</form>  
 		</div>
 	</div>
+
