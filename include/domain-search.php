@@ -61,36 +61,9 @@
 						break;
 				}
 			} 
-			else
-			{
-			
-				$info = $xml->GetDomainInfo->status;
-	
-				print "<table width='70%' style='text-align:center'>";
-				print "<tr><td>Domain name:</td><td>$info->domainname</td></tr>";
-				print "<tr><td>Status:</td><td>";
-				foreach ($info->status as $key => $val) { foreach($val as $key2=>$val2) { print "$key2 => $val2<br />"; }}
-				print "</td></tr><tr><td>Parking Enabled?</td><td>$info->ParkingEnabled</td></tr>";
-			 
-				print "</td></tr></table>";
-				
-				$i = 0;
-				foreach ($info as $each_member) {
-						$i++;
-						echo "<h2>Member $i</h2>";
-						while (list($key, $value) = each ($each_member)) {
-																							 
-								echo "$key: $value<br />";
-								
-						}
-
-				} 
-
-			}
 		}
 	} 
 	?>
-</div>
 <div class="metabox-holder">
 	<div class="postbox" style="float:left; width:45%; margin: 0 3px 0 0">
 		<h3 class="hndle"><span>Hobinom Domain Search</span></h3>
@@ -135,4 +108,47 @@
 		</form>  
 		</div>
 	</div>
+</div>
 
+<?php if(isset($_POST['retrieve_status'])): ?>
+<div class="metabox-holder" style="clear:both;width:50%;margin:0 auto;text-align:center">
+	<div class="postbox">
+		<h3 class="hndle"><span>Status Results for <?php echo $_POST['hobinom_domain'].".".$_POST['hobinom_tld']; ?></span></h3>
+		<div class="inside">
+		<?php
+		
+			//echo "<pre>".print_r($xml->GetDomainInfo,true)."</pre>";
+			$info = $xml->GetDomainInfo;
+			$status = $xml->GetDomainInfo->status;
+			$wbl = $xml->GetDomainInfo->services->entry[5]->wbl;
+
+			echo "<table style='text-align:center;width:100%'>"
+			."<tr><td id='info'>Domain name:</td><td>$info->domainname</td> 
+						<td id='info'>Expiration:</td><td>$status->expiration</td></tr>"
+			."<tr><td id='info'>Restorable?</td><td>$status->restorable</td>
+						<td id='info'>Registrar</td><td>$status->registrar</td></tr>"
+			."<tr><td id='info'>Belongs To:</td><td>$status->belongs-to</td>
+						<td id='info'>Parking Enabled?</td><td>$info->ParkingEnabled</td></tr>"
+			."<tr><td></td></tr>"
+			."<tr><td id='info'>Company Name</td><td>$wbl->companyname</td>
+						<td id='info'>Street</td><td>$wbl->street</td></tr>"
+			."<tr><td id='info'>City</td><td>$wbl->city</td>
+						<td id='info'>State</td><td>$wbl->stateprovince</td></tr>"
+			."<tr><td id='info'>Postal</td><td>$wbl->postalcode</td>
+						<td id='info'>Country</td><td>$wbl->country</td></tr>"
+			."<tr><td></td></tr>"
+			."<tr><td id='info'>Parking Enabled?</td><td>$info->ParkingEnabled</td>
+						<td id='info'>DNS</td><td>";
+			foreach($info->services->entry->configuration->dns as $dns)
+			{
+				echo $dns."<br />";
+			}
+			echo "</td></tr>";
+			
+			echo "</table>";
+			
+			?>
+		</div>
+	</div>
+</div>
+<?php endif; ?>

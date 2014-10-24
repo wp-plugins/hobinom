@@ -68,7 +68,9 @@
 					<tr><td>Domain</td><td><input type="text" name="hobinom_domainname" maxlength="60" value="<?php echo $hn_domainname; ?>">Return names that match this name. Use format: DOMAINNAME.TLD</td></tr>
 				</table>
 		</form>  
-</div>  
+	</div>
+	</div>
+</div>
 
 <?php
 if($_POST['hobinom_hidden'] == 'Y') 
@@ -124,9 +126,13 @@ if($_POST['hobinom_hidden'] == 'Y')
 	else
 	{
 	
-		$domain_list = $xml->GetDomains->{"domain-list"}->domain;
+		echo "<div class='metabox-holder'>";
+		echo "<div class='postbox'>";
 		
-		print "<h3>Domain Results</h3>";
+		$domain_list = $xml->GetDomains->{"domain-list"}->domain;
+
+		echo '<h3 class="hndle"><span>Domain Results</span></h3>';
+		echo '<div class="inside">';
 		if(isset($nooptions) || ($options))
 		{
 			print "<table width='70%' style='text-align:center'>
@@ -137,8 +143,8 @@ if($_POST['hobinom_hidden'] == 'Y')
 			{	
 				print "<tr>";
 				print "<td>".$domain_list->$i->DomainNameID."</td>";
-				print "<td>".$domain_list->$i->sld."</td>";
-				print "<td>".$domain_list->$i->tld."</td>";
+				print "<td id='info'>".$domain_list->$i->sld."</td>";
+				print "<td id='info'>".$domain_list->$i->tld."</td>";
 				print "<td>".$domain_list->$i->{'ns-status'}."</td>";
 				print "<td>".$domain_list->$i->{'expiration-date'}."</td>";
 				print "<td>".$domain_list->$i->{'auto-renew'}."</td>";
