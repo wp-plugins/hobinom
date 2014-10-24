@@ -5,3 +5,4 @@
 #poststuff h3, .metabox-holder h3{   font-size: 15px; font-weight: normal;  line-height: 1;  margin: 0;   padding: 7px 10px;}
 .postbox .inside { margin: 10px 0; position: relative}
 .postbox .inside, .stuffbox .inside { line-height: 1.4em; padding: 0 12px 0 10px}
+#info{background: #eee;padding:5px;font-weight:bold}

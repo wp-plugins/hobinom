@@ -20,7 +20,7 @@
 		
 		<form name="hobinom_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">  
 				<input type="hidden" name="hobinom_hidden" value="Y">  
-				<?php _e( "Not sure what domain you want, or want to know if better names exist? Try the domain spinner. Generate variations of a domain name that you specify, for .com, .net, .tv, and .cc. Make sure to have <a href='admin.php?page=hobinom/hobinom-settings.php'>your settings set</a> to use the API." );  ?>
+				<?php _e( "Not sure what domain you want, or want to know if better names exist? Try the domain spinner. Generate variations of a domain name that you specify, for .com, .net, .tv, and .cc. Make sure to have <a href='admin.php?page=hobinom/settings.php'>your settings set</a> to use the API." );  ?>
 				<p><br /></p>
 				<table><tr><td>
 				<?php _e("Domain: " ); ?></td><td><input type="text" name="hobinom_domain" value="<?php echo $hn_domain; ?>" size="20"><?php _e(" ex: domain" ); ?></td></tr>
