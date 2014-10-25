@@ -2,8 +2,8 @@
 Contributors: Immortal Design
 Tags: enom, reseller, domain reseller, domain management, domain search, domain
 Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 0.4
+Tested up to: 4.0
+Stable tag: 0.5
 
 == Description ==
 It's time to stop logging into eNom seperately, and start managing it from WordPress. 
