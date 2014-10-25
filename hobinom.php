@@ -43,6 +43,7 @@ add_action( 'plugins_loaded', array($HNfunctions,'hobinom_update_db_check') );
 // Create pages
 add_action( 'admin_menu', array($HNfunctions, 'hobinom_navigation_menu') );  
 add_action( 'admin_init', array($HNfunctions,'hobinom_style') );   //css style
+add_action( 'admin_init', array($HNfunctions, 'hobinom_scripts')); // js
 
 add_filter( 'plugin_action_links', array($HNfunctions, 'hobinom_add_settings_link'), 10, 2 );
 // Adding WordPress plugin meta links
@@ -144,12 +145,11 @@ class hobinomFuncCollection
 			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', HOBINOM_DIR.'/settings.php', '', plugins_url('hobinom/images/logo.png') );
 			
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
-			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
-
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');			
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
-			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Purchase','domain-purchase'), __('Purchase','domain-purchase'), 'manage_options', HOBINOM_DIR.'/include/domain-purchase.php');
+			//add_submenu_page(HOBINOM_DIR.'/settings.php', __('Domain Management','domain-manage'), __('Domain Management','domain-manage'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Host Records','hostrecords'), __('Host Records','hostrecords'), 'manage_options', HOBINOM_DIR.'/include/hostrecords.php');
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 		
@@ -158,10 +158,15 @@ class hobinomFuncCollection
 	
 	function hobinom_style()  
 	{  
-		// Register the style like this for a plugin:  
 		wp_register_style( 'custom-style', plugins_url( '/css/style.css', __FILE__ ), array(), '20130414', 'all' );  
     wp_enqueue_style( 'custom-style' );
 	}  
+	
+	function hobinom_scripts() 
+	{
+		wp_register_script( 'ClickTabs', plugins_url('/js/ClickTabs.js', __FILE__));
+		wp_enqueue_script( 'ClickTabs' );
+	}
 	
 	function widget_redirect( $redirect_to, $requested_redirect_to )
 	{

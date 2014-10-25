@@ -1,4 +1,13 @@
-<div class="wrap">  
+<a onclick="clickTabSwitch(1);">[Tab Name]</a>
+<div id="clickTab1">
+[your content here]
+</div>
+
+<a onclick="clickTabSwitch(2);">[Tab Name2]</a>
+
+
+<div id="clickTab2" style="display:none;">
+	<div class="wrap">  
 	<?php echo "<h2>" . __( 'Domain Management', 'hobinomnom_trdom' ) . "</h2>";?>
 			
 		<form name="hobinomnom_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">  
@@ -12,4 +21,5 @@
 				<input type="submit" name="Submit" value="<?php _e('Update Options', 'hobinomnom_trdom' ) ?>" />  
 				</p>  
 		</form>  
-</div>  
+	</div>  
+</div>
