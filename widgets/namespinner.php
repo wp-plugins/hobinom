@@ -96,14 +96,7 @@ class HNNamespinnerWidget extends WP_Widget
 		if(isset($spin_domain))
 		{
 			// get details to access hobi + enom API
-			$hobinom = new hobinom_db(); 
-
-			$current_user_id = get_current_user_id();
-			$details = $hobinom->get_enom_details($current_user_id);
-	
-			$username = $details['username'];  
-			$password = $details['password']; 
-
+			require_once(plugin_dir_path( __FILE__ ) . '../include/header.php' );
 			// separate the data from domain and tld
 			// explode makes each subsequent . a new array, so domain.co.uk is [0],[1],[2] while domain.co is [0][1]
 			$root_domain = explode(".", $spin_domain);
@@ -111,7 +104,7 @@ class HNNamespinnerWidget extends WP_Widget
 			$tld = substr($spin_domain, strrpos($spin_domain, ".")+1);
 			
 			// access enom api
-			$url = 'http://resellertest.enom.com/interface.asp?command=NameSpinner&UID='.$username.'&PW='.$password.'&SLD='.$domain.'&TLD='.$tld.'&MaxResults='.$max_results.'&Net=N&Tv=N&CC=N&ResponseType=XML';
+			$url = $api_url . '?command=NameSpinner&UID='.$username.'&PW='.$password.'&SLD='.$domain.'&TLD='.$tld.'&MaxResults='.$max_results.'&Net=N&Tv=N&CC=N&ResponseType=XML';
 
 
 			// Load the API results into a SimpleXML object

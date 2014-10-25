@@ -85,25 +85,17 @@ class HNDomainSearchWidget extends WP_Widget
 	function search_for_domain($search_domain)
 	{		
 		if(isset($search_domain))
-		{
-			// get details to access hobi + enom API
-			$hobinom = new hobinom_db(); 
-
-			$current_user_id = get_current_user_id();
-			$details = $hobinom->get_enom_details($current_user_id);
-	
-			$username = $details['username'];  
-			$password = $details['password']; 
-
+		{			
+			//require_once('/hobinom/include/header.php');
+			require_once(plugin_dir_path( __FILE__ ) . '../include/header.php' );
 			// separate the data from domain and tld
-			// explode makes each subsequent . a new array, so domain.co.uk is [0],[1],[2] while domain.co is [0][1]
+			// explode makes each subsequent . a new array, so domain.co.uk is [0],[1],[2] while domain.co is [0][1]	
 			$root_domain = explode(".", $search_domain);
 			$domain = $root_domain[0]; 
 			$tld = substr($search_domain, strrpos($search_domain, ".")+1);
 			
 			// access enom api
-			$url =  'https://resellertest.enom.com/interface.asp?command=check&sld='.$domain.'&tld='.$tld.
-				'&responsetype=xml&uid='.$username.'&pw='.$password;
+			$url =  $api_url . '?command=check&sld='.$domain.'&tld='.$tld.'&responsetype=xml&uid='.$username.'&pw='.$password;
 	
 			// Load the API results into a SimpleXML object
 			$xml = simplexml_load_file($url);

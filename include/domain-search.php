@@ -2,15 +2,8 @@
 	if (!current_user_can('manage_options')) {  
 		wp_die('You do not have sufficient permissions to access this page.');  
 	}  
-	require_once('functions.php'); 
-	$hobinom = new hobinom_db(); 
+	require_once('header.php'); 
 	
-	$current_user_id = get_current_user_id();
-	$details = $hobinom->get_enom_details($current_user_id);
-	
-	$username = $details['username'];  
-	$password = $details['password']; 
-
 	if($_POST['hobinom_hidden'] == 'Y') 
 	{  
 		//Form data sent  
@@ -20,11 +13,11 @@
 		
 		if(isset($_POST['search_domain']))
 		{
-			$url =  'https://resellertest.enom.com/interface.asp?command=check&sld='.$domain.'&tld='.$tld.'&responsetype=xml&uid='.$username.'&pw='.$password;
+			$url = $api_url . '?command=check&sld='.$domain.'&tld='.$tld.'&responsetype=xml&uid='.$username.'&pw='.$password;
 		}
 		else
 		{
-			$url = 'https://resellertest.enom.com/interface.asp?command=GetDomainInfo&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML';
+			$url = $api_url . '?command=GetDomainInfo&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML';
 		}
 		
 		// Load the API results into a SimpleXML object

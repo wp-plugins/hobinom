@@ -3,7 +3,7 @@
 class hobinom_db
 {
 	// url to enom api  
-	protected $enom_url = 'https://resellertest.enom.com/interface.asp';  
+	protected $enom_url;
       
 	// enom username and password
 	protected $enom_user;
@@ -24,6 +24,14 @@ class hobinom_db
 		*/
 	}  
 		
+	public function is_demo($demo)
+	{
+		// if 1/true, url is reseller test
+		$url = (!empty($demo)) ? 'https://resellertest.enom.com/interface.asp' : 'https://reseller.enom.com/interface.asp';
+		
+		return $url;
+	}
+	
 	public function get_all() 
 	{
 	 global $wpdb;
@@ -90,8 +98,9 @@ class hobinom_db
 		
 		$username = $settings_decode['username'];  
 		$password = $settings_decode['password'];  
+		$demo_mode = $settings_decode['demo_mode'];
 		
-		$enom = array('username' => $username, 'password' => $password);
+		$enom = array('username' => $username, 'password' => $password, 'demo_mode'=>$demo_mode);
 		
 		return $enom;
 	}

@@ -2,14 +2,7 @@
 	if (!current_user_can('manage_options')) {  
 		wp_die('You do not have sufficient permissions to access this page.');  
 	}  
-	require_once('functions.php'); 
-	$hobinom = new hobinom_db(); 
-	
-	$current_user_id = get_current_user_id();
-	$details = $hobinom->get_enom_details($current_user_id);
-	
-	$username = $details['username'];  
-	$password = $details['password']; 
+	require_once('header.php'); 
 ?>
 <div class="metabox-holder">
 	
@@ -101,15 +94,16 @@ if($_POST['hobinom_hidden'] == 'Y')
 	if(isset($nooptions) || isset($options))
 	{
 		// URL for API request, get list of all domains with options
-		$url =  'https://resellertest.enom.com/interface.asp?command=GetDomains&responsetype=xml&'.
+		$url =  $api_url . '?command=GetDomains&responsetype=xml&'.
 					'uid='.$username.'&pw='.$password.'&Tab='.$tab.'&DaysToExpired='.$daystoexpired.'&RegStatus='.$regstatus.'&Display='.$display.'&StartLetter='.$startletter.'&OrderBy='.$orderby.'&MultiLang='.$multilang;
 	}
 	else
 	{
 	 // URL for API request, get list of expired domains
-		$url =  'https://resellertest.enom.com/interface.asp?command=GetExpiredDomains&responsetype=xml&'.
-					'uid='.$username.'&pw='.$password;
+		$url =  $api_url . '?command=GetExpiredDomains&responsetype=xml&uid='.$username.'&pw='.$password;
 	}
+	
+	print_r($url);
 	
 	// Load the API results into a SimpleXML object
   $xml = simplexml_load_file($url);

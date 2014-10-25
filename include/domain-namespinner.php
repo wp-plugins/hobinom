@@ -2,14 +2,7 @@
 	if (!current_user_can('manage_options')) {  
 		wp_die('You do not have sufficient permissions to access this page.');  
 	}  
-	require_once('functions.php'); 
-	$hobinom = new hobinom_db(); 
-	
-	$current_user_id = get_current_user_id();
-	$details = $hobinom->get_enom_details($current_user_id);
-	
-	$username = $details['username'];  
-	$password = $details['password']; 
+	require_once('header.php');  
 ?>
 <div class="metabox-holder">
 	
@@ -109,7 +102,7 @@ if($_POST['hobinom_hidden'] == 'Y')
 	if(empty($max_length)) { $max_length = 65;}
 	
 	 // URL for API request
-	$url = 'http://resellertest.enom.com/interface.asp?command=NameSpinner&UID='.$username.'&PW='.$password.'&SLD='.$domain.'&TLD='.$tld.'&SensitiveContent='.$sensitive.'&MaxLength='.$max_length.'&MaxResults='.$max_results.'&UseHyphens='.$hyphens.'&UseNumbers='.$use_numbers.'&Basic='.$basic.'&Similar='.$similarity.'&Topical='.$topical.'&ResponseType=XML';
+	$url = $api_url . '?command=NameSpinner&UID='.$username.'&PW='.$password.'&SLD='.$domain.'&TLD='.$tld.'&SensitiveContent='.$sensitive.'&MaxLength='.$max_length.'&MaxResults='.$max_results.'&UseHyphens='.$hyphens.'&UseNumbers='.$use_numbers.'&Basic='.$basic.'&Similar='.$similarity.'&Topical='.$topical.'&ResponseType=XML';
 
   // Load the API results into a SimpleXML object
   $xml = simplexml_load_file($url);

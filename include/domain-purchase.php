@@ -2,14 +2,7 @@
 	if (!current_user_can('manage_options')) {  
 		wp_die('You do not have sufficient permissions to access this page.');  
 	}  
-	require_once('functions.php'); 
-	$hobinom = new hobinom_db(); 
-	
-	$current_user_id = get_current_user_id();
-	$details = $hobinom->get_enom_details($current_user_id);
-	
-	$username = $details['username'];  
-	$password = $details['password']; 
+	require_once('header.php'); 
 ?>
 <div class="metabox-holder">
 	<div class="postbox" style="float:left; width:45%; margin: 0 3px 0 0">
@@ -85,12 +78,11 @@ if($_POST['hobinom_hidden'] == 'Y')
 
 	if(isset($_POST['purchase_simple']))
 	{
-  $url =  'https://resellertest.enom.com/interface.asp?command=Purchase&sld='.$domain.'&tld='.$tld.
-					'&responsetype=xml&uid='.$username.'&pw='.$password;
+		$url = $api_url . '?command=Purchase&sld='.$domain.'&tld='.$tld.'&responsetype=xml&uid='.$username.'&pw='.$password;
 	}
 	else
 	{
-		$url = 'http://resellertest.enom.com/interface.asp?command=Purchase&UID='.$username.'&PW='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML&cira_legal_type='.$cira_legal.'&cira_whois_display='.$cira_whois.'&cira_language='.$cira_language.
+		$url = $api_url . '?command=Purchase&UID='.$username.'&PW='.$password.'&sld='.$domain.'&tld='.$tld.'&ResponseType=XML&cira_legal_type='.$cira_legal.'&cira_whois_display='.$cira_whois.'&cira_language='.$cira_language.
 		'&cira_agreement_value='.$cira_agreement_value.'&cira_agreement_version='.$cira_agreement_version.'&UseDNS='.$usedns.'&NumYears='.$numyears.'&RegistrantFirstName='.$registrant_first_name.'&RegistrantLastName='.$registrant_last_name.'&RegistrantOrganizationName='.$registrant_organization.'&RegistrantAddress1='.$registrant_address1.'&RegistrantCity='.$registrant_city.'&RegistrantCountry='.$registrant_country.'&RegistrantPostalCode='.$registrant_postal.'&RegistrantStateProvince='.$registrant_state.'&RegistrantStateProvinceChoice='.$registrate_state_province_choice.'&RegistrantEmailAddress='.$registrant_email.'&RegistrantPhone='.$registrant_phone;
 	}
 	

@@ -1,7 +1,7 @@
 <?php
  /*
  Plugin Name: HobiNom
- Plugin URI: http://hobihut.com/hobinom
+ Plugin URI: http://hobihut.com/shop/free/hobinom/
  Description: Manage your eNom reseller account from within Wordpress, includes widgets. Requires an eNom reseller account.
  Version: .5
  Author: Immortal Design
@@ -45,6 +45,9 @@ add_action( 'admin_menu', array($HNfunctions, 'hobinom_navigation_menu') );
 add_action( 'admin_init', array($HNfunctions,'hobinom_style') );   //css style
 
 add_filter( 'plugin_action_links', array($HNfunctions, 'hobinom_add_settings_link'), 10, 2 );
+// Adding WordPress plugin meta links
+add_filter( 'plugin_row_meta', array($HNfunctions, 'hobinom_meta_links'), 10, 2 );
+
 add_filter( 'rul_before_user', 'login_widget_redirect', 10, 4 );
 add_filter( 'page_template', array($HNfunctions, 'hobinom_page_template' ));
 
@@ -115,8 +118,21 @@ class hobinomFuncCollection
     }
  
     return $links;
-}
+	}
  
+	function hobinom_meta_links( $links, $file ) {
+ 
+		$plugin = plugin_basename(__FILE__);
+		 
+		// create link
+		if ( $file == $plugin ) {
+			return array_merge( $links,
+			array( '<a href="http://hobihut.com">Support</a>' )
+			);
+		}
+		return $links;		
+	}
+	
 	function hobinom_navigation_menu() 
 	{
 		if (current_user_can('manage_options'))  
@@ -125,7 +141,7 @@ class hobinomFuncCollection
 			// add_menu_page(__('Test Toplevel','menu-test'), __('Test ','menu-test'), 'manage_options', 'mt-top-level-handle', 'mt_toplevel_page' );
 			
 			//  add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position )
-			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', HOBINOM_DIR.'/settings.php', '', plugins_url('hobinom/images/starfish.png') );
+			add_menu_page(__('HobiNom','hobinom'), __('HobiNom','hobinom'), 'manage_options', HOBINOM_DIR.'/settings.php', '', plugins_url('hobinom/images/logo.png') );
 			
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');
@@ -186,10 +202,8 @@ class hobinomFuncCollection
     }
     return $page_template;
 	}
+	
 }
-
-print_r($page_template);
-print_r($wp);
 
 
 ?>

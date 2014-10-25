@@ -2,14 +2,7 @@
 	if (!current_user_can('manage_options')) {  
 		wp_die('You do not have sufficient permissions to access this page.');  
 	}  
-	require_once('functions.php'); 
-	$hobinom = new hobinom_db(); 
-	
-	$current_user_id = get_current_user_id();
-	$details = $hobinom->get_enom_details($current_user_id);
-	
-	$username = $details['username'];  
-	$password = $details['password']; 
+	require_once('header.php'); 
 ?>
 </div>
 <div class="metabox-holder">
@@ -48,7 +41,7 @@
 		
 		if(isset($_POST['get_hostrecords']))
 		{
-			$url =  'https://resellertest.enom.com/interface.asp?command=gethosts&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&responsetype=xml';
+			$url = $api_url . '?command=gethosts&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&responsetype=xml';
 		}
 		
 		// Load the API results into a SimpleXML object
