@@ -28,7 +28,10 @@
 	</div>  
 	
 	</div>
-	
+
+	<?php 
+	if(isset($_POST['get_hostrecords'])): 
+	?>
 	<div class="postbox" style="float:left; width:45%">
 		<h3 class="hndle"><span>Host Records for: <?php echo $_POST['hobinom_domain'] . "." . $_POST['hobinom_tld']; ?></span></h3>
 		<div class="inside">
@@ -38,12 +41,8 @@
 		$domain = $_POST['hobinom_domain'];	
 		$tld = $_POST['hobinom_tld'];
 
-		
-		if(isset($_POST['get_hostrecords']))
-		{
-			$url = $api_url . '?command=gethosts&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&responsetype=xml';
-		}
-		
+		$url = $api_url . '?command=gethosts&uid='.$username.'&pw='.$password.'&sld='.$domain.'&tld='.$tld.'&responsetype=xml';
+				
 		// Load the API results into a SimpleXML object
 		$xml = simplexml_load_file($url);
 		
@@ -91,3 +90,4 @@
 	?>
 		</div>
 	</div>
+<?php endif; ?>
