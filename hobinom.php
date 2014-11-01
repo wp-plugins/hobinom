@@ -149,7 +149,7 @@ class hobinomFuncCollection
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
-			//add_submenu_page(HOBINOM_DIR.'/settings.php', __('Domain Management','domain-manage'), __('Domain Management','domain-manage'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Domain Management','domain-manage'), __('Domain Management','domain-manage'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Host Records','hostrecords'), __('Host Records','hostrecords'), 'manage_options', HOBINOM_DIR.'/include/hostrecords.php');
 			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 		

@@ -1,9 +1,9 @@
-<a onclick="clickTabSwitch(1);">[Tab Name]</a>
+<a onclick="clickTabSwitch(1);">Get Preferences</a>
 <div id="clickTab1">
 [your content here]
 </div>
 
-<a onclick="clickTabSwitch(2);">[Tab Name2]</a>
+<a onclick="clickTabSwitch(2);">Set Preferences</a>
 
 
 <div id="clickTab2" style="display:none;">
