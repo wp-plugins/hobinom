@@ -25,7 +25,7 @@
 				<br />If checked, you will be accessing the reseller test API - no charges/changes will be made to your live eNom account.
 			</p>
 			<p class="submit">  
-				<input type="submit" name="Submit" value="<?php _e('Update Options', 'hobinom_trdom' ) ?>" />  
+				<input type="submit" name="Submit" value="<?php _e('Update Settings', 'hobinom_trdom' ) ?>" />  
 			</p>  
 		</form>  
 
@@ -75,105 +75,129 @@
 </div>
 
 <div class="clear">&nbsp;</div>
-<div class="metabox-holder">
-	
-	<!-- Getting Started box -->
-	<div class="postbox" style="">
-		<h3 class="hndle"><span>Account Preferences</span></h3>
-		<div class="inside">
-			<?php echo __("This can only be used once you've set your settings / set up your eNom Interface! NOTE: if you are set for demo mode, this will show your DEMO preferences, not your non-demo/main account."); ?>
-			<br />
-			<form name="hobinom_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">  
-				<input type="submit" name="get_preferences" value="<?php _e('Get Preferences', 'hobinomnom_trdom' ) ?>" />  
-				<input type="submit" name="update_preferences" value="<?php _e('Update Account', 'hobinomnom_trdom' ) ?>" />  
-			</form>  
-		</div>  
-	</div>
-
-	
-	<?php if(isset($_POST['get_preferences'])): ?>
-				<!-- Getting Started box -->
+	<div class="metabox-holder">
 		<div class="postbox">
+			<?php 
+			if(!empty($username) && !empty($password)):
+				$url = $api_url . '?command=GetCusPreferences&UID='.$username.'&PW='.$password.'&responsetype=xml';		
 			
-		<?php
-			if($_POST['get_preferences'])
-				$url = $api_url . '?command=GetCusPreferences&UID='.$username.'&PW='.$password.'&responsetype=xml';
-		
-			// Load the API results into a SimpleXML object
-			$xml = simplexml_load_file($url);
-			
-			if(isset($xml->errors)) 
-			{
-				// echo all errors
-				function recursive_print($item, $key)
-				{
-					echo '<div class="updated"><p><strong>'.$item.'</strong></p></div>';
-				}
-				array_walk_recursive($xml->errors, 'recursive_print');
-			}
-			else
-			{
-				$pref = $xml->CustomerPrefs;
-				$host = $xml->CustomerPrefs->defaulthostrecords->hostrecord;
-				$customer = $xml->CustomerInformation;
-				$nameservers = $xml->CustomerPrefs->NameServers;
-			?>
-				<h3 class='hndle'>Your Current Account Preferences</h3>
-					<div class='inside'>
-						<table><th>Preference</th>
-									<th>Currently Set To</th></tr>
-							<tr><td id='info'>Your Account Number</td><td><?php echo $customer->Account; ?></td></tr>
-							<tr><td id='info'>Default Renewal Period</td><td><?php echo $pref->DefPeriod; ?> year(s)</td></tr>
-							<tr><td id='info'>If reseller, parent account?</td><td><?php echo $customer->ParentLogin . " (account #: " . $customer->ParentAccount . ")"; ?></td></tr>
-							<tr><td id='info'>Service Status</td><td><?php echo $customer->NoService; ?></td></tr>
-							<tr><td id='info'>Bulk Registration Limit</td><td><?php echo $customer->BulkRegLimit; ?></td></tr>
-							<tr><td id='info'>Signed credit card agreement with eNom?</td><td><?php echo $customer->AcceptTerms; ?></td></tr>
-							<tr><td id='info'>Allows non-eNom nameservers</td><td><?php echo $pref->AllowDNS; ?></td></tr>
-							<tr><td id='info'>Show Popup Menus</td><td><?php echo $pref->ShowPopups; ?></td></tr>
-							<tr><td id='info'>Domain Lock?</td><td><?php echo $pref->RegLock; ?></td></tr>
-							<tr><td id='info'>Auto Renew POP Paks?</td><td><?php echo $pref->AutoPakRenew; ?></td></tr>
-							<tr><td id='info'>Uses eNom's DNS?</td><td><?php echo $pref->UseDNS; ?></td></tr>
-							<tr><td id='info'>Uses eNom's DNS by Default?</td><td><?php echo $pref->UseOurDNS; ?></td></tr>
-							<tr><td id='info'>Default to eNom's hostrecords?</td><td><?php echo $pref->defaulthostrecordown; ?></td></tr>
-							<tr><td id='info'>Auto Renew Domains?</td><td><?php echo $pref->AutoRenew; ?></td></tr>
-							<tr><td id='info'>Renewal Settings</td><td><?php echo $pref->RenewalSetting; ?></td></tr>
-							<tr><td id='info'>Renewal BCC</td><td><?php echo $pref->RenewalBCC; ?></td></tr>
-							<tr><td id='info'>Renewal URLF orward</td><td><?php echo $pref->RenewalURLForward; ?></td></tr>
-							<tr><td id='info'>Renewal EMail Forward</td><td><?php echo $pref->RenewalEmailForward; ?></td></tr>
-							<tr><td id='info'>Mail Limit?</td><td><?php echo $pref->MailNumLimit; ?></td></tr>
-							<tr><td id='info'>ID Protection?</td><td><?php echo $pref->IDProtect; ?></td></tr>
-							<tr><td id='info'>NameJet Sales?</td><td><?php echo $pref->NameJetSales; ?></td></tr>
-							<tr><td id='info'>HostName</td>
-									<td>
-									<table>
-										<?php for($i=0;$i<count($host); $i++) {
-											echo "<tr><td id='info'>Hostname: </td><td> ".$host[$i]->attributes()->hostname ."</td></tr>";
-											echo "<tr><td id='info'>Address: </td><td> ".$host[$i]->attributes()->address."</td></tr>";
-											echo "<tr><td id='info'>Record Type: </td><td> " .$host[$i]->attributes()->recordtype."</td></tr>";
-										}?>
-										</table>
-									</td>
-							</tr>
-						<tr><td id='info'>Nameservers</td>
-							<td><?php echo $pref->NameServers->DNS1 . "<br />" .
-														$pref->NameServers->DNS2 . "<br />" .
-														$pref->NameServers->DNS3 . "<br />" .
-														$pref->NameServers->DNS4 . "<br />" .
-														$pref->NameServers->DNS5 . "<br />"; ?>
-						</tr>
-											
-				<?php
-				echo "</table></div>";
+				if($_POST['update_preferences'])
+				{				
+					//full api url below, need to add several update options (adv?)
+					//$url = $api_url . 'command=UPDATECUSPREFERENCES&UID='.$username.'&PW='.$password.'DefPeriod=4&AutoRenew=on&AutoPakRenew=on&RegLock=on&URLForwardingRenew=on&EmailForwardRenew=on&useparentdefault=0&RecordType=A,A,A&address=85.92.87.177,85.92.87.179,85.92.87.180&hostname=@,*,www&ResponseType=XML';
+					$url = $api_url . "?command=UPDATECUSPREFERENCES&UID=".$username."&PW=".$password."&DefPeriod=".$_POST['defperiod']."&AutoRenew=".$_POST['choice_autorenew']."&AutoPakRenew=". $_POST['choice_autopakrenew']."&RegLock=".$_POST['choice_reglock']."&IDProtect=".$_POST['choice_idprotect']."&DefIDProtectRenew=".$_POST['defidprotectrenew']."&DefWBLRenew=".$_POST['defwblrenew']."&ResponseType=XML";
+				}   
+					// Load the API results into a SimpleXML object
+				$xml = simplexml_load_file($url);
 				
-			
-			}
-		
-		?>
+				if(isset($xml->errors)) 
+				{
+					// echo all errors
+					function recursive_print($item, $key)
+					{
+						echo '<div class="updated"><p><strong>'.$item.'</strong></p></div>';
+					}
+					array_walk_recursive($xml->errors, 'recursive_print');
+				}
+				else
+				{
+					$pref = $xml->CustomerPrefs;
+					$host = $xml->CustomerPrefs->defaulthostrecords->hostrecord;
+					$customer = $xml->CustomerInformation;
+					$nameservers = $xml->CustomerPrefs->NameServers;
+					
+					$choice_true = "<button type='button' class='btn btn-primary select' value='on' name='".$btn_name."'>True</button><button type='button' class='btn btn-primary unselect' value='off' name='".$btn_name."'>False</button>";
+					$choice_false = "<button type='button' class='btn btn-primary unselect' value='on' name='".$btn_name."'>True</button><button type='button' class='btn btn-primary select' value='off' name='".$btn_name."'>False</button>";
+				?>
+					<h3 class='hndle'>Your Current Account Preferences</h3>
+						<div class='inside'>
+							<?php echo __("If you are set for demo mode, this will show your DEMO preferences, not your non-demo/main account. If you are using eNom's reseller test account (resellerid/resellertest), then you will see those settings."); ?><br /><br /><br />
+							<form name="hobinom_preferences_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>"> 
+								<table><th>Preference</th>
+											<th>Currently Set To</th><th>Set Preference To</th></tr>
+									<tr><td id='info'>Your Account Number</td><td><?php echo $customer->Account; ?></td></tr>
+									<tr><td id='info'>Default Renewal Period (max 10 years)</td><td><?php echo $pref->DefPeriod; ?> year(s)</td>
+											<td><input name='defperiod' value="" /></tr>
+									<tr><td id='info'>If reseller, parent account?</td><td><?php echo $customer->ParentLogin . " (account #: " . $customer->ParentAccount . ")"; ?></td></tr>
+									<tr><td id='info'>Service Status</td><td><?php echo $customer->NoService; ?></td></tr>
+									<tr><td id='info'>Bulk Registration Limit</td><td><?php echo $customer->BulkRegLimit; ?></td></tr>
+									<tr><td id='info'>Signed credit card agreement with eNom?</td><td><?php echo $customer->AcceptTerms; ?></td></tr>
+									<tr><td id='info'>Allows non-eNom nameservers</td><td><?php echo $pref->AllowDNS; ?></td></tr>							
+									<tr><td id='info'>Domain Lock?</td><td><?php echo $pref->RegLock; ?></td>
+											<td>
+												<input type="radio" value='on' name='choice_reglock' <?php if ($pref->RegLock == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_reglock'<?php if ($pref->RegLock == "False"): echo "checked"; endif; ?>>False</button>											
+											</td>
+									</tr>
+									<tr><td id='info'>Auto Renew POP Paks?</td><td><?php echo $pref->AutoPakRenew; ?></td>
+											<td>
+												<input type="radio" value='on' name='choice_autopakrenew' <?php if ($pref->AutoPakRenew == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_autopakrenew' <?php if ($pref->AutoPakRenew == "False"): echo "checked"; endif; ?>>False</button>										
+											</td>
+									</tr>
+									<tr><td id='info'>Uses eNom's DNS?</td><td><?php echo $pref->UseDNS; ?></td></tr>
+									<tr><td id='info'>Uses eNom's DNS by Default?</td><td><?php echo $pref->UseOurDNS; ?></td></tr>
+									<tr><td id='info'>Default to eNom's host records?</td><td><?php echo $pref->defaulthostrecordown; ?></td></tr>
+									<tr><td id='info'>Auto Renew Domains?</td><td><?php echo $pref->AutoRenew; ?></td>
+											<td>
+												<input type="radio" value='on' name='choice_autorenew' <?php if ($pref->AutoRenew == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_autorenew'<?php if ($pref->AutoRenew == "False"): echo "checked"; endif; ?>>False</button>								
+											</td>
+									</tr>
+									<tr><td id='info'>Renewal Settings</td><td><?php echo $pref->RenewalSetting; ?></td></tr>
+									<tr><td id='info'>Renewal BCC</td><td><?php echo $pref->RenewalBCC; ?></td></tr>
+									<tr><td id='info'>Renewal URLF orward</td><td><?php echo $pref->RenewalURLForward; ?></td></tr>
+									<tr><td id='info'>Renewal EMail Forward</td><td><?php echo $pref->RenewalEmailForward; ?></td></tr>
+									<tr><td id='info'>Mail Limit?</td><td><?php echo $pref->MailNumLimit; ?></td></tr>
+									<tr><td id='info'>ID Protection?</td><td><?php echo $pref->IDProtect; ?></td>
+											<td>
+												<input type="radio" value='on' name='choice_idprotect' <?php if ($pref->IDProtect == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_idprotect'<?php if ($pref->IDProtect == "False"): echo "checked"; endif; ?>>False</button>	
+												(Note: Purchases ID Protection for all eligible domains.)
+												</div>
+											</td> 
+									</tr>
+									<tr><td id='info'>Auto-renew ID Protection before expiration?</td><td></td>
+											<td>
+												<input type="radio" value='on' name='choice_defidprotectrenew' <?php if ($pref->DefIDProtectRenew == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_defidprotectrenew'<?php if ($pref->DefIDProtectRenew == "False"): echo "checked"; endif; ?>>False</button>											
+											</td>
+									</tr>
+									<tr><td id='info'>Auto-renew Business Listing before expiration?</td><td></td>
+											<td>
+												<input type="radio" value='on' name='choice_defwblrenew' <?php if ($pref->DefWBLRenew == "True"): echo "checked"; endif; ?>>True</button>
+												<input type="radio" value='off' name='choice_defwblrenew'<?php if ($pref->DefWBLRenew == "False"): echo "checked"; endif; ?>>False</button>											
+											</td>
+									</tr>
+									<tr><td id='info'>NameJet Sales?</td><td><?php echo $pref->NameJetSales; ?></td></tr>
+									<tr><td id='info'>HostName</td>
+											<td>
+											<table>
+												<?php for($i=0;$i<count($host); $i++) {
+													echo "<tr><td id='info'>Hostname: </td><td> ".$host[$i]->attributes()->hostname ."</td></tr>";
+													echo "<tr><td id='info'>Address: </td><td> ".$host[$i]->attributes()->address."</td></tr>";
+													echo "<tr><td id='info'>Record Type: </td><td> " .$host[$i]->attributes()->recordtype."</td></tr>";
+												}?>
+												</table>
+											</td>
+									</tr>
+								<tr><td id='info'>Nameservers</td>
+									<td><?php echo $pref->NameServers->DNS1 . "<br />" .
+																$pref->NameServers->DNS2 . "<br />" .
+																$pref->NameServers->DNS3 . "<br />" .
+																$pref->NameServers->DNS4 . "<br />" .
+																$pref->NameServers->DNS5 . "<br />"; ?>
+									</td>
+								</tr>
+								<tr><td></td><td><input type='submit' name='update_preferences' value='Update Account' /></td></tr>
+						</table>
+						</form>
+						</div>
+					</div>
 				</div>
-			</div>
-		<?php endif; ?>
+			<?php } ?>
 		</div>
-
+	<?php endif; ?>
 	</div>
 	<div class="clear:both;">&nbsp;</div>
 </div>

@@ -6,3 +6,6 @@
 .postbox .inside { margin: 10px 0; position: relative}
 .postbox .inside, .stuffbox .inside { line-height: 1.4em; padding: 0 12px 0 10px}
 #info{background: #eee;padding:5px;font-weight:bold}
+/* for switch */
+.select{opacity: 1.0}
+.unselect{ opacity: 0.1}
