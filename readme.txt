@@ -2,8 +2,8 @@
 Contributors: Immortal Design
 Tags: enom, reseller, domain reseller, domain management, domain search, domain
 Requires at least: 3.1
-Tested up to: 4.0
-Stable tag: 0.6
+Tested up to: 4.1
+Stable tag: 0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ N/A
 N/A
 
 == Changelog ==
+
+= 0.7 (2015-02-01) =
+* upgraded and verified to 4.1
+* Menu rearrangement, combining pages
+* Added getting nameservers
+* Misc bugs.
 
 = 0.6 (2014-11-02) =
 * Added new feature, account settings management/updating

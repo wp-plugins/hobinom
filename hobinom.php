@@ -147,19 +147,21 @@ class hobinomFuncCollection
 			// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function)
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Settings','settings'), __('Settings','settings'), 'manage_options', HOBINOM_DIR.'/settings.php');			
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Search Domains','domain-search'), __('Search Domains','domain-search'), 'manage_options', HOBINOM_DIR.'/include/domain-search.php');
-			add_submenu_page(HOBINOM_DIR.'/settings.php', __('List Domains','name-spinner'), __('List Domains','list-domains'), 'manage_options', HOBINOM_DIR.'/include/domain-list.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Name Spinner','name-spinner'), __('Name Spinner','name-spinner'), 'manage_options', HOBINOM_DIR.'/include/domain-namespinner.php');
-			//add_submenu_page(HOBINOM_DIR.'/settings.php', __('Domain Management','domain-manage'), __('Domain Management','domain-manage'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
+
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('---------', '---------'), __('----------','---------'), 'manage_options', '');			
+			
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Domain Management','domain-manage'), __('Domain Management','domain-manage'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
 			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Host Records','hostrecords'), __('Host Records','hostrecords'), 'manage_options', HOBINOM_DIR.'/include/hostrecords.php');
-			//add_submenu_page('hobinom', __('Domain Management','domain-management'), __('Domain Management','domain-management'), 'manage_options', HOBINOM_DIR.'/include/domain-management.php');
-		
+			add_submenu_page(HOBINOM_DIR.'/settings.php', __('Name Servers','nameservers'), __('Name Servers','nameservers'), 'manage_options', HOBINOM_DIR.'/include/nameservers.php');
+				
 		}          
 	}
 	
 	function hobinom_style()  
 	{  
 		wp_register_style( 'custom-style', plugins_url( '/css/style.css', __FILE__ ), array(), '20130414', 'all' );  
-    wp_enqueue_style( 'custom-style' );
+    	wp_enqueue_style( 'custom-style' );
 	}  
 	
 	function hobinom_scripts() 
